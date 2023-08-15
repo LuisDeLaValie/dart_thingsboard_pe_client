@@ -21,9 +21,9 @@ class AttributeService {
     return response.data!;
   }
 
-  Future<List<String>> getAttributeKeysByScope(EntityId entityId, String scope,
+  Future<List<dynamic>> getAttributeKeysByScope(EntityId entityId, String scope,
       {RequestConfig? requestConfig}) async {
-    var response = await _tbClient.get<List<String>>(
+    var response = await _tbClient.get<List<dynamic>>(
         '/api/plugins/telemetry/${entityId.entityType.toShortString()}/${entityId.id}/keys/attributes/$scope',
         options: defaultHttpOptionsFromConfig(requestConfig));
     return response.data!;
