@@ -49,9 +49,9 @@ class AttributeService {
     return RestJsonConverter.toAttributes(response.data);
   }
 
-  Future<List<String>> getTimeseriesKeys(EntityId entityId,
+  Future<List<dynamic>> getTimeseriesKeys(EntityId entityId,
       {RequestConfig? requestConfig}) async {
-    var response = await _tbClient.get<List<String>>(
+    var response = await _tbClient.get<List<dynamic>>(
         '/api/plugins/telemetry/${entityId.entityType.toShortString()}/${entityId.id}/keys/timeseries',
         options: defaultHttpOptionsFromConfig(requestConfig));
     return response.data!;
