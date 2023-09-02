@@ -937,6 +937,17 @@ class DeviceInfo extends Device {
         super.fromJson(json);
 
   @override
+  Map<String, dynamic> toJson() {
+    var json = super.toJson();
+    if (customerTitle != null) json["customerTitle"] = customerTitle;
+    if (customerIsPublic != null) json["customerIsPublic"] = customerIsPublic;
+    if (deviceProfileName != null) json["deviceProfileName"] = deviceProfileName;
+    if (active != null) json["active"] = active;
+
+    return json;
+  }
+
+  @override
   String toString() {
     return 'DeviceInfo{${deviceString('deviceProfileName: $deviceProfileName, customerTitle: $customerTitle, '
         'customerIsPublic: $customerIsPublic, active: $active')}}';
