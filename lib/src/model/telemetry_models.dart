@@ -300,16 +300,6 @@ class JsonDataEntry extends BasicKvEntry {
 
 enum Aggregation { MIN, MAX, AVG, SUM, COUNT, NONE }
 
-Aggregation aggregationFromString(String value) {
-  return Aggregation.values.firstWhere(
-      (e) => e.toString().split('.')[1].toUpperCase() == value.toUpperCase());
-}
-
-extension AggregationToString on Aggregation {
-  String toShortString() {
-    return toString().split('.').last;
-  }
-}
 
 abstract class RestJsonConverter {
   static const String KEY = 'key';
@@ -524,7 +514,8 @@ class TimeseriesSubscriptionCmd extends SubscriptionCmd {
     if (limit != null) {
       json['limit'] = limit;
     }
-    json['agg'] = agg.toShortString();
+    
+    json['agg'] = agg.name; //agg.toShortString();
     return json;
   }
 
@@ -564,7 +555,7 @@ class GetHistoryCmd extends TelemetryPluginCmd {
     if (limit != null) {
       json['limit'] = limit;
     }
-    json['agg'] = agg.toShortString();
+    json['agg'] = agg.name; //agg.toShortString();
     return json;
   }
 }
@@ -593,7 +584,7 @@ class EntityHistoryCmd {
       'startTs': startTs,
       'endTs': endTs,
       'interval': interval,
-      'agg': agg.toShortString()
+      'agg': agg.name //agg.toShortString()
     };
     if (limit != null) {
       json['limit'] = limit;
@@ -638,7 +629,7 @@ class TimeSeriesCmd {
       'startTs': startTs,
       'timeWindow': timeWindow,
       'interval': interval,
-      'agg': agg.toShortString()
+      'agg': agg.name //agg.toShortString()
     };
     if (limit != null) {
       json['limit'] = limit;
@@ -670,7 +661,7 @@ class AggKey {
     var json = <String, dynamic>{
       'id': id,
       'key': key,
-      'agg': agg.toShortString()
+      'agg': agg.name //agg.toShortString()
     };
     if (previousStartTs != null) {
       json['previousStartTs'] = previousStartTs;
@@ -1073,6 +1064,9 @@ abstract class DataUpdate<T> extends CmdUpdate {
                 .toList()
             : null,
         super.fromJson(json);
+  Map<String, dynamic> toJson() {
+    return {};
+  }
 
   @override
   String toString() {

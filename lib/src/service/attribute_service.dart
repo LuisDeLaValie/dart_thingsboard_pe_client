@@ -82,7 +82,7 @@ class AttributeService {
     var queryParameters = <String, dynamic>{
       'keys': keys.join(','),
       'interval': interval == null ? '0' : interval.toString(),
-      'agg': agg == null ? 'NONE' : agg.toShortString(),
+      'agg': agg == null ? 'NONE' : agg.name, //agg.toShortString()
       'limit': limit != null ? limit.toString() : '100',
       'orderBy': sortOrder != null ? sortOrder.toShortString() : 'DESC',
       'useStrictDataTypes': useStrictDataTypes
